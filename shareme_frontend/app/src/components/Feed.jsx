@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { client } from '../client';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
-import { feedQuery, searchQeury } from '../utils/data';
+import { feedQuery, searchQuery } from '../utils/data';
 
 function Feed() {
     const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ function Feed() {
     useEffect(() => {
         setLoading(true);
         if (categoryId) {
-            const query = searchQeury(categoryId);
+            const query = searchQuery(categoryId);
 
             client.fetch(query).then((data) => {
                 setPins(data);
