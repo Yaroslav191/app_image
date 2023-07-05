@@ -29,9 +29,9 @@ function Feed() {
         }
     }, [categoryId]);
 
-    console.log(pins);
-
     if (loading) return <Spinner message="We are addig new ideas to your feed!" />;
+
+    if (!pins?.length) return <h2>No pins available</h2>;
 
     return <div>{pins && <MasonryLayout pins={pins} />}</div>;
 }

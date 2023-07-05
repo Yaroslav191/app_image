@@ -193,9 +193,10 @@ function CreatePin({ user }) {
                                     Select category
                                 </option>
 
-                                {categories.map((item) => {
+                                {categories.map((item, i) => {
                                     return (
                                         <option
+                                            key={i}
                                             value={item.name}
                                             className="text-base
                                             border-0 outline-none capitalize bg-white

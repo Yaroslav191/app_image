@@ -14,7 +14,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
 
     const navitage = useNavigate();
 
-    const alreadySaved = !!save?.filter((item) => item.postedBy._id === user.googleId)?.length;
+    const alreadySaved = !!save?.filter((item) => item.postedBy._id === user?.googleId)?.length;
 
     const savePin = (id) => {
         if (!alreadySaved) {
@@ -24,10 +24,10 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                 .insert('after', 'save[-1]', [
                     {
                         _key: uuidv4(),
-                        userId: user.googleId,
+                        userId: user?.googleId,
                         postedBy: {
                             _type: 'postedBy',
-                            _ref: user.googleId,
+                            _ref: user?.googleId,
                         },
                     },
                 ])
@@ -101,16 +101,16 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                                     className="bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full
                                     opacity-70 hover:100 hover:shadow-md">
                                     <BsFillArrowUpRightCircleFill />
-                                    {destination.length > 20
-                                        ? destination.slice(8, 20)
-                                        : destination.slice(8)}
+                                    {destination.length > 15
+                                        ? `${destination.slice(0, 15)}...`
+                                        : destination}
                                 </a>
                             )}
-                            {postedBy?._id === user.googleId && (
+                            {postedBy?._id === user?.googleId && (
                                 <button
                                     type="button"
                                     className="bg-white p-2 opacity-70 hover:opacity-100
-                font-bold text-dark  text-base rounded-3xl hover:shadow-md outline-none"
+                                    font-bold text-dark  text-base rounded-3xl hover:shadow-md outline-none"
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         deletePin(_id);

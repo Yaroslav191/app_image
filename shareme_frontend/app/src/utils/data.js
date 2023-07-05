@@ -48,6 +48,10 @@ export const categories = [
         image: 'https://i.pinimg.com/236x/1b/c8/30/1bc83077e363db1a394bf6a64b071e9f.jpg',
     },
     {
+        name: 'games',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnPrzBrUSEcAhn0tVzCH35c8myLDcwaVk9l7Guwjc&s',
+    },
+    {
         name: 'others',
         image: 'https://i.pinimg.com/236x/2e/63/c8/2e63c82dfd49aca8dccf9de3f57e8588.jpg',
     },
@@ -75,6 +79,43 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
           },
         },
       } `;
+
+export const getPin = (pinId) => {
+    const query = `*[_type == "pin" && _id == '${pinId}']{
+          image{
+            asset->{
+              url
+            }
+          },
+          _id,
+          title, 
+          about,
+          category,
+          destination,
+          postedBy->{
+            _id,
+            userName,
+            image
+          },
+         save[]{
+            postedBy->{
+              _id,
+              userName,
+              image
+            },
+          },
+          comments[]{
+            comment,
+            _key,
+            postedBy->{
+              _id,
+              userName,
+              image
+            },
+          }
+        }`;
+    return query;
+};
 
 export const pinDetailQuery = (pinId) => {
     const query = `*[_type == "pin" && _id == '${pinId}']{
