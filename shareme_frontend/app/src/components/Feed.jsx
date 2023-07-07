@@ -6,34 +6,34 @@ import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 import { feedQuery, searchQuery } from '../utils/data';
 
-function Feed() {
-    const [loading, setLoading] = useState(false);
-    const [pins, setPins] = useState(null);
+function Feed({ user }) {
+  const [loading, setLoading] = useState(false);
+  const [pins, setPins] = useState(null);
 
-    const { categoryId } = useParams();
+  const { categoryId } = useParams();
 
-    useEffect(() => {
-        setLoading(true);
-        if (categoryId) {
-            const query = searchQuery(categoryId);
+  useEffect(() => {
+    setLoading(true);
+    if (categoryId) {
+      const query = searchQuery(categoryId);
 
-            client.fetch(query).then((data) => {
-                setPins(data);
-                setLoading(false);
-            });
-        } else {
-            client.fetch(feedQuery).then((data) => {
-                setPins(data);
-                setLoading(false);
-            });
-        }
-    }, [categoryId]);
+      client.fetch(query).then((data) => {
+        setPins(data);
+        setLoading(false);
+      });
+    } else {
+      client.fetch(feedQuery).then((data) => {
+        setPins(data);
+        setLoading(false);
+      });
+    }
+  }, [categoryId]);
 
-    if (loading) return <Spinner message="We are addig new ideas to your feed!" />;
+  if (loading) return <Spinner message="We are addig new ideas to your feed!" />;
 
-    if (!pins?.length) return <h2>No pins available</h2>;
+  if (!pins?.length) return <h2>No pins available</h2>;
 
-    return <div>{pins && <MasonryLayout pins={pins} />}</div>;
+  return <div>{pins && <MasonryLayout pins={pins} user={user} />}</div>;
 }
 
 export default Feed;

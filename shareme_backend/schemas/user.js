@@ -13,5 +13,10 @@ export default {
       title: 'Image',
       type: 'string',
     },
+    {
+      name: 'role',
+      title: 'Role',
+      type: 'string',
+    },
   ],
 }
