@@ -19,8 +19,8 @@ const Home = () => {
   let userWithRole = JSON.parse(localStorage.getItem('user'));
   userWithRole.role = user?.role;
 
-  localStorage.setItem('user', JSON.stringify(userWithRole));
-
+    localStorage.setItem('user', JSON.stringify(userWithRole));
+  
   useEffect(() => {
     const query = userQuery(userInfo?.googleId);
 
